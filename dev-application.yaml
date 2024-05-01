@@ -5,8 +5,8 @@ metadata:
   namespace: argo
 spec:
   project: default
-  source: 
-    repoURL: https://github.com/smirnov-mi/my-charts.git 
+  source:
+    repoURL: https://github.com/smirnov-mi/my-charts.git
     targetRevision: HEAD
     path: dev
     # helm specific config
@@ -14,13 +14,12 @@ spec:
     #helm:
     #  passCredentials: false # If true then adds --pass-credentials to Helm commands to pass credentials to all domains
 
-  destination: 
+  destination:
     server: https://kubernetes.default.svc
     namespace: my-app-dev
   syncPolicy:
-    syncOptions: 
+    syncOptions:
     - CreateNamespace=true
     automated:
       selfHeal: true
       prune: true
-
