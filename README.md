@@ -1,6 +1,6 @@
 # my-charts 
 
-This repository is used to store sample helm charts
+This repository is used to store example helm charts
 
 ## Prerequisites
 
@@ -10,7 +10,10 @@ This repository is used to store sample helm charts
 
 ## install the app
 
+### DEV app
+
+"DEV App" - a simple 1-pod application + a service. No templates so far.
+
 ```bash
 k apply -f dev-application.yaml
 ```
-
