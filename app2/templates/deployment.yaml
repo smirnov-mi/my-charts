@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.AppName }}
+  name: {{ .Values.AppName }}
+  namespace: {{ .Values.Namespace }}
+spec:
+  replicas: {{ .Values.Replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.AppName }}
+      app: {{ .Values.AppName }}
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Values.AppName }}
+        app: {{ .Values.AppName }}
+    spec:
+      tolerations:
+  # these tolerations are to have the daemonset runnable on control plane nodes
+  # Rancher labels:
+      - key: node-role.kubernetes.io/controlplane
+        operator: Exists
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/etcd
+        operator: Exists
+        effect: NoExecute
+      affinity:
+        # prefer to run on a master node
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: node-role.kubernetes.io/controlplane
+                operator: Exists
+
+      containers:
+      - image: {{ .Values.Image }}
+        name: nginx
+        resources:
+    # must be defined to ensure QoS type and HPA
+          requests:
+            cpu: 5m
+            memory: 1Mi
+			

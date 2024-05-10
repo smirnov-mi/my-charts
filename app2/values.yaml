@@ -1,0 +1,5 @@
+AppName: mc-web
+Namespace: dev-www-mc
+Replicas: 1
+Hostname: dev-app2.yourdomain.com
+Image: smichi/webs:tiny1.25.3-0.2

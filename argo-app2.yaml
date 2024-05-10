@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-app2
+  namespace: argo
+spec:
+  destination:
+    name: ''
+    namespace: dev-www-mc
+    server: https://kubernetes.default.svc
+  source:
+    path: app2
+    repoURL: https://github.com/smirnov-mi/my-charts.git
+    targetRevision: HEAD
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
